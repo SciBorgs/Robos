@@ -248,7 +248,7 @@ public class Drive extends SubsystemBase implements Logged, AutoCloseable {
     return modules.stream().map(SwerveModule::desiredState).toArray(SwerveModuleState[]::new);
   }
 
-  /** Returns the chassis speed. */
+  /** Returns the chassis speed. */ 
   @Log.NT
   public ChassisSpeeds getChassisSpeed() {
     return kinematics.toChassisSpeeds(getModuleStates());
