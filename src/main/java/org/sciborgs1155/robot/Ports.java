@@ -17,4 +17,16 @@ public final class Ports {
     public static final int FRONT_RIGHT_TURNING = 16;
     public static final int REAR_RIGHT_TURNING = 17;
   }
+
+  public static final class Intake {
+    public static final int INTAKE_LEFT = 18;
+    public static final int INTAKE_RIGHT = 19;
+  }
+
+  public static final class Elevator {
+    public static final int FIRST_MOTOR = 20;
+    public static final int SECOND_MOTOR = 21;
+    public static final int THIRD_MOTOR = 22;
+    public static final int FOURTH_MOTOR = 23;
+  }
 }

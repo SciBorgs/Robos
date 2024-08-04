@@ -1,0 +1,10 @@
+package org.sciborgs1155.robot.elevator;
+
+public class Elevator {
+
+    public Elevator() {
+
+    }
+
+
+}
