@@ -9,11 +9,9 @@ public interface IntakeIO {
 
   public boolean hasCube();
 
-  public void setIntakeVoltage();
+  public void setIntakePower(double portion); //portion from -1 to 1
 
-  public double getIntakeVelocity();
-
-  public voic setWristVoltage();
+  public void setWristVoltage(double voltage);
 
   public Rotation2d getWristAngle();
 }

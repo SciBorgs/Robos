@@ -12,6 +12,8 @@ public class RealIntake implements IntakeIO {
   
   private final Solenoid leftJaw, rightJaw;
 
+  private boolean jawClosed = false;
+
   public RealIntake() {
     leftMotor = new TalonFX(INTAKE_LEFT);
     leftMotor.setInverted(true);
@@ -27,5 +29,29 @@ public class RealIntake implements IntakeIO {
     rightJaw = new Solenoid(PneumaticsModuleType.REVPH, JAW_RIGHT);
   }
 
+  @Override
+  public void setIntakePower(double portion) {
+    leftMotor.set(portion);
+    rightMotor.set(portion);
+  }
+
+  @Override
+  public void openJaw() {
+    jawClosed = false;
+    leftJaw.set(false);
+    rightJaw.set(false);
+  }
+  
+  @Override
+  public void closeJaw() {
+    jawClosed = true;
+    leftJaw.set(true);
+    rightJaw.set(true);
+  }
+
+  @Override
+  public boolean jawClosed() {
+      return jawClosed;
+  }
 
 }
