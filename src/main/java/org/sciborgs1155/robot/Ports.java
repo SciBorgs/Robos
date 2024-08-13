@@ -21,6 +21,11 @@ public final class Ports {
   public static final class Intake {
     public static final int INTAKE_LEFT = 18;
     public static final int INTAKE_RIGHT = 19;
+
+    public static final int JAW_LEFT = 24;
+    public static final int JAW_RIGHT = 25;
+
+    public static final int INTAKE_WRIST = 26;
   }
 
   public static final class Elevator {
