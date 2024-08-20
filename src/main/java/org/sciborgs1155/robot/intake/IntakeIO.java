@@ -7,5 +7,5 @@ public interface IntakeIO {
 
   public boolean hasCube();
 
-  public void setIntakePower(double portion); //portion from -1 to 1
+  public void setIntakePower(double portion); // portion from -1 to 1
 }

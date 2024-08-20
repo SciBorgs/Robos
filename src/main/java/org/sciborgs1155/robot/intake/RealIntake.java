@@ -3,13 +3,12 @@ package org.sciborgs1155.robot.intake;
 import static org.sciborgs1155.robot.Ports.Intake.*;
 
 import com.ctre.phoenix6.hardware.TalonFX;
-import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.Solenoid;
 
 public class RealIntake implements IntakeIO {
 
   private final TalonFX leftMotor, rightMotor, wristMotor;
-  
   private final Solenoid leftJaw, rightJaw;
 
   private boolean jawClosed = false;
@@ -41,7 +40,7 @@ public class RealIntake implements IntakeIO {
     leftJaw.set(false);
     rightJaw.set(false);
   }
-  
+
   @Override
   public void closeJaw() {
     jawClosed = true;
@@ -51,7 +50,6 @@ public class RealIntake implements IntakeIO {
 
   @Override
   public boolean jawClosed() {
-      return jawClosed;
+    return jawClosed;
   }
-
 }
