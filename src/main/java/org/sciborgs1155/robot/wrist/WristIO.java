@@ -1,31 +1,36 @@
-package main.java.org.sciborgs1155.robot.wrist;
+package org.sciborgs1155.robot.wrist;
 
-public interface WristIO {
+import edu.wpi.first.units.Current;
+import edu.wpi.first.units.Measure;
+import monologue.Logged;
 
-    /**
-     * Sets the voltage of the wrist.
-     * @param voltage The voltage of the wrist.
-     */
-    public void setVoltage(double voltage);
+public interface WristIO extends AutoCloseable, Logged{
 
-    /**
-     * Sets the current limit for the wrist.
-     * @param limit The proposed current limit for the wrist.
-     */
-    public void setCurrentLimit(measure<Current> limit);
+  /**
+   * Sets the voltage of the wrist.
+   *
+   * @param voltage The voltage of the wrist.
+   */
+  public void setVoltage(double voltage);
 
-    /**
-     * Gets the position of the wrist.
-     * 
-     * @return The position of the wrist in radians.
-     */
-    public double getPosition();
+  /**
+   * Sets the current limit for the wrist.
+   *
+   * @param limit The proposed current limit for the wrist.
+   */
+  public void setCurrentLimit(Measure<Current> limit);
 
-    /**
-     * Gets the velocity of the wrist.
-     * 
-     * @return The velocity of the wrist in radians / second.
-     */
-    public double getVelocity();
+  /**
+   * Gets the position of the wrist.
+   *
+   * @return The position of the wrist in radians.
+   */
+  public double getPosition();
 
+  /**
+   * Gets the velocity of the wrist.
+   *
+   * @return The velocity of the wrist in radians / second.
+   */
+  public double getVelocity();
 }

@@ -3,15 +3,17 @@ package org.sciborgs1155.robot.intake;
 import static org.sciborgs1155.robot.Ports.Intake.*;
 
 import com.ctre.phoenix6.hardware.TalonFX;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 
 public class RealIntake implements IntakeIO {
 
-  private final TalonFX leftMotor, rightMotor, wristMotor;
+  private final TalonFX leftMotor, rightMotor;
   private final Solenoid leftJaw, rightJaw;
 
-  private boolean jawClosed = false;
+  private DigitalInput leftSensor = new DigitalInput(LEFT_SENSOR);
+  private DigitalInput rightSensor = new DigitalInput(RIGHT_SENSOR);
 
   public RealIntake() {
     leftMotor = new TalonFX(INTAKE_LEFT);
@@ -21,35 +23,37 @@ public class RealIntake implements IntakeIO {
     rightMotor = new TalonFX(INTAKE_RIGHT);
     rightMotor.setPosition(0);
 
-    wristMotor = new TalonFX(INTAKE_WRIST);
-    wristMotor.setPosition(0);
-
     leftJaw = new Solenoid(PneumaticsModuleType.REVPH, JAW_LEFT);
     rightJaw = new Solenoid(PneumaticsModuleType.REVPH, JAW_RIGHT);
   }
 
   @Override
-  public void setIntakePower(double portion) {
+  public void setPower(double portion) {
     leftMotor.set(portion);
     rightMotor.set(portion);
   }
 
   @Override
-  public void openJaw() {
-    jawClosed = false;
-    leftJaw.set(false);
-    rightJaw.set(false);
+  public void setJaw(boolean position) {
+    leftJaw.set(position);
+    rightJaw.set(position);
   }
 
   @Override
-  public void closeJaw() {
-    jawClosed = true;
-    leftJaw.set(true);
-    rightJaw.set(true);
+  public boolean hasCube() {
+    return !(leftSensor.get() && rightSensor.get());
+    // definitely has cube, both left and right sensor detect
   }
 
   @Override
-  public boolean jawClosed() {
-    return jawClosed;
+  public void close() {
+    leftMotor.close();
+    rightMotor.close();
+
+    leftJaw.close();
+    rightJaw.close();
+
+    leftSensor.close();
+    rightSensor.close();
   }
 }

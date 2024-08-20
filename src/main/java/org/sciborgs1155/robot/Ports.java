@@ -26,6 +26,9 @@ public final class Ports {
     public static final int JAW_RIGHT = 25;
 
     public static final int INTAKE_WRIST = 26;
+
+    public static final int LEFT_SENSOR = 27;
+    public static final int RIGHT_SENSOR = 28;
   }
 
   public static final class Elevator {

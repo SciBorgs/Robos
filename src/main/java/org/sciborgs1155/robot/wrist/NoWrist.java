@@ -1,12 +1,29 @@
-package main.java.org.sciborgs1155.robot.wrist;
+package org.sciborgs1155.robot.wrist;
 
-public class NoWrist {
+import static edu.wpi.first.units.Units.Radians;
 
-    @Override
-    public void setVoltage(double voltage) {}
+import edu.wpi.first.units.Current;
+import edu.wpi.first.units.Measure;
 
-    @Override
-    public void setCurrentLimit(Measure<Current> limit) {}
+public class NoWrist implements WristIO {
 
-    p
+  @Override
+  public void setVoltage(double voltage) {}
+
+  @Override
+  public void setCurrentLimit(Measure<Current> limit) {}
+
+  @Override
+  public double getPosition() {
+    return WristConstants.MIN_ANGLE.in(Radians);
+  }
+
+  @Override
+  public double getVelocity() {
+    return 0;
+  }
+
+@Override
+public void close() {}
+
 }

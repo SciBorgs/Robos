@@ -1,3 +1,3 @@
-package main.java.org.sciborgs1155.robot.wrist;
+package org.sciborgs1155.robot.wrist;
 
 public class Wrist {}
