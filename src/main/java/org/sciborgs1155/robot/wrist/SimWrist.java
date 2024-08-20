@@ -7,8 +7,6 @@ import static org.sciborgs1155.robot.wrist.WristConstants.*;
 
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.math.system.plant.LinearSystemId;
-import edu.wpi.first.units.Current;
-import edu.wpi.first.units.Measure;
 import edu.wpi.first.wpilibj.simulation.SingleJointedArmSim;
 
 public class SimWrist implements WristIO {
@@ -27,29 +25,21 @@ public class SimWrist implements WristIO {
           true,
           STARTING_ANGLE.in(Radians));
 
-@Override
-public void setVoltage(double voltage) {
+  @Override
+  public void setVoltage(double voltage) {
     sim.setInputVoltage(voltage);
-}
+  }
 
-@Override
-public void setCurrentLimit(Measure<Current> limit) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'setCurrentLimit'");
-}
+  @Override
+  public double getPosition() {
+    return sim.getAngleRads();
+  }
 
-@Override
-public double getPosition() {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'getPosition'");
-}
+  @Override
+  public double getVelocity() {
+    return sim.getVelocityRadPerSec();
+  }
 
-@Override
-public double getVelocity() {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'getVelocity'");
-}
-
-@Override
-public void close() {}
+  @Override
+  public void close() {}
 }

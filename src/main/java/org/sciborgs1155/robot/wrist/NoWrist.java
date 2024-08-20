@@ -2,16 +2,10 @@ package org.sciborgs1155.robot.wrist;
 
 import static edu.wpi.first.units.Units.Radians;
 
-import edu.wpi.first.units.Current;
-import edu.wpi.first.units.Measure;
-
 public class NoWrist implements WristIO {
 
   @Override
   public void setVoltage(double voltage) {}
-
-  @Override
-  public void setCurrentLimit(Measure<Current> limit) {}
 
   @Override
   public double getPosition() {
@@ -23,7 +17,6 @@ public class NoWrist implements WristIO {
     return 0;
   }
 
-@Override
-public void close() {}
-
+  @Override
+  public void close() {}
 }

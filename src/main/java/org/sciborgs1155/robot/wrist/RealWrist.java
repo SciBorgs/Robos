@@ -1,36 +1,35 @@
 package org.sciborgs1155.robot.wrist;
 
-import edu.wpi.first.units.Current;
-import edu.wpi.first.units.Measure;
+import static org.sciborgs1155.robot.Ports.Wrist.*;
+import static org.sciborgs1155.robot.wrist.WristConstants.*;
+
+import com.ctre.phoenix6.hardware.TalonFX;
 
 public class RealWrist implements WristIO {
+  public final TalonFX motor;
 
-    @Override
-    public void setVoltage(double voltage) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setVoltage'");
-    }
+  public RealWrist() {
+    motor = new TalonFX(INTAKE_WRIST);
+    motor.setPosition(0);
+  }
 
-    @Override
-    public void setCurrentLimit(Measure<Current> limit) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setCurrentLimit'");
-    }
+  @Override
+  public void setVoltage(double voltage) {
+    motor.setVoltage(voltage);
+  }
 
-    @Override
-    public double getPosition() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getPosition'");
-    }
+  @Override
+  public double getPosition() {
+    return motor.getPosition().getValueAsDouble();
+  }
 
-    @Override
-    public double getVelocity() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getVelocity'");
-    }
+  @Override
+  public double getVelocity() {
+    return motor.getVelocity().getValueAsDouble();
+  }
 
-    @Override
-    public void close() throws Exception {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'close'");
-    }}
+  @Override
+  public void close() throws Exception {
+    motor.close();
+  }
+}

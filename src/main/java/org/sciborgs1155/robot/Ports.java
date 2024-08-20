@@ -25,10 +25,12 @@ public final class Ports {
     public static final int JAW_LEFT = 24;
     public static final int JAW_RIGHT = 25;
 
-    public static final int INTAKE_WRIST = 26;
+    public static final int LEFT_SENSOR = 26;
+    public static final int RIGHT_SENSOR = 27;
+  }
 
-    public static final int LEFT_SENSOR = 27;
-    public static final int RIGHT_SENSOR = 28;
+  public static final class Wrist {
+    public static final int INTAKE_WRIST = 28;
   }
 
   public static final class Elevator {
@@ -36,5 +38,10 @@ public final class Ports {
     public static final int SECOND_MOTOR = 21;
     public static final int THIRD_MOTOR = 22;
     public static final int FOURTH_MOTOR = 23;
+  }
+
+  public static final class Hanger {
+    public static final int LEFT_PISTON = 29;
+    public static final int RIGHT_PISTON = 30;
   }
 }
