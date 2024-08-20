@@ -22,6 +22,9 @@ import org.sciborgs1155.robot.Ports.OI;
 import org.sciborgs1155.robot.commands.Autos;
 import org.sciborgs1155.robot.drive.Drive;
 import org.sciborgs1155.robot.drive.DriveConstants;
+import org.sciborgs1155.robot.hanger.Hanger;
+import org.sciborgs1155.robot.intake.Intake;
+import org.sciborgs1155.robot.wrist.Wrist;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -37,6 +40,24 @@ public class Robot extends CommandRobot implements Logged {
 
   // SUBSYSTEMS
   private final Drive drive = Drive.create();
+
+  private final Wrist wrist =
+      switch (Constants.ROBOT_TYPE) {
+        case COMPLETE -> Wrist.create();
+        default -> Wrist.none();
+      };
+
+  private final Intake intake =
+      switch (Constants.ROBOT_TYPE) {
+        case COMPLETE -> Intake.create();
+        default -> Intake.none();
+      };
+
+  private final Hanger hanger =
+      switch (Constants.ROBOT_TYPE) {
+        case CHASSIS -> Hanger.none();
+        default -> Hanger.create();
+      };
 
   // COMMANDS
   @Log.NT private final Autos autos = new Autos();

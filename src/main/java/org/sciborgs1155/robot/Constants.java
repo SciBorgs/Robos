@@ -23,4 +23,14 @@ public class Constants {
           / DriveConstants.MAX_ANGULAR_SPEED.baseUnitMagnitude();
   public static final double SLOW_SPEED = 0.33;
   public static final double FULL_SPEED = 1.0;
+
+  /** The model of the robot that this code is controlling. */
+  public static enum RobotType {
+    COMPLETE,
+    CHASSIS,
+    NO_WRIST
+  }
+
+  /** The current model of the robot that this code is controlling. */
+  public static final RobotType ROBOT_TYPE = RobotType.COMPLETE;
 }

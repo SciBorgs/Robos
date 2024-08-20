@@ -9,18 +9,15 @@ import static edu.wpi.first.wpilibj2.command.button.RobotModeTriggers.teleop;
 import static org.sciborgs1155.robot.Constants.PERIOD;
 import static org.sciborgs1155.robot.wrist.WristConstants.*;
 
-import java.util.function.DoubleSupplier;
-
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
-import edu.wpi.first.units.Angle;
-import edu.wpi.first.units.Measure;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
+import java.util.function.DoubleSupplier;
 import monologue.Logged;
 import org.sciborgs1155.robot.Robot;
 
@@ -49,11 +46,15 @@ public class Wrist extends SubsystemBase implements Logged, AutoCloseable {
 
     pid.reset(MIN_ANGLE.in(Radians));
 
+    setDefaultCommand(retract());
+
     teleop().or(autonomous()).onTrue(runOnce(() -> pid.reset(hardware.getPosition())));
   }
 
   /**
-   * Creates a new real wrist if the robot is real, and creates a new sim wrist if the robot is not real.
+   * Creates a new real wrist if the robot is real, and creates a new sim wrist if the robot is not
+   * real.
+   *
    * @return A new Wrist.
    */
   public static Wrist create() {
@@ -62,6 +63,7 @@ public class Wrist extends SubsystemBase implements Logged, AutoCloseable {
 
   /**
    * Creates a new none wrist
+   *
    * @return A new none wrist.
    */
   public static Wrist none() {
@@ -70,6 +72,7 @@ public class Wrist extends SubsystemBase implements Logged, AutoCloseable {
 
   /**
    * Extends the wrist to its maximum angle.
+   *
    * @return A command to extend the wrist to its max angle.
    */
   public Command extend() {
@@ -78,6 +81,7 @@ public class Wrist extends SubsystemBase implements Logged, AutoCloseable {
 
   /**
    * Retracts the wrist to its minimum angle.
+   *
    * @return A command to retract the wrist to its min angle.
    */
   public Command retract() {
@@ -86,7 +90,7 @@ public class Wrist extends SubsystemBase implements Logged, AutoCloseable {
 
   /**
    * Moves the wrist to the goal angle.
-   * 
+   *
    * @param goalAngle A double supplier for the goal angle in radians.
    * @return A command which moves the wrist to the goal angle.
    */
@@ -95,8 +99,7 @@ public class Wrist extends SubsystemBase implements Logged, AutoCloseable {
   }
 
   /**
-   * Finds the next voltage to angle the wrist, and then 
-   * angles the wrist towards that angle.
+   * Finds the next voltage to angle the wrist, and then angles the wrist towards that angle.
    *
    * @param goalAngle the angle to move the wrist to, in radians.
    */
@@ -115,23 +118,32 @@ public class Wrist extends SubsystemBase implements Logged, AutoCloseable {
   }
 
   public Command dynamicForward() {
-    return sysIdRoutine.dynamic(Direction.kForward).until(() -> hardware.getPosition() > MAX_ANGLE.in(Radians) - 0.2);
+    return sysIdRoutine
+        .dynamic(Direction.kForward)
+        .until(() -> hardware.getPosition() > MAX_ANGLE.in(Radians) - 0.2);
   }
 
   public Command dynamicBackward() {
-    return sysIdRoutine.dynamic(Direction.kReverse).until(() -> hardware.getPosition() < MIN_ANGLE.in(Radians) + 0.2);
+    return sysIdRoutine
+        .dynamic(Direction.kReverse)
+        .until(() -> hardware.getPosition() < MIN_ANGLE.in(Radians) + 0.2);
   }
 
   public Command quasistaticForward() {
-    return sysIdRoutine.quasistatic(Direction.kForward).until(() -> hardware.getPosition() > MAX_ANGLE.in(Radians) - 0.2);
+    return sysIdRoutine
+        .quasistatic(Direction.kForward)
+        .until(() -> hardware.getPosition() > MAX_ANGLE.in(Radians) - 0.2);
   }
 
   public Command quasistaticBackward() {
-    return sysIdRoutine.quasistatic(Direction.kReverse).until(() -> hardware.getPosition() < MIN_ANGLE.in(Radians) + 0.2);
+    return sysIdRoutine
+        .quasistatic(Direction.kReverse)
+        .until(() -> hardware.getPosition() < MIN_ANGLE.in(Radians) + 0.2);
   }
 
   /**
    * The position of the wrist.
+   *
    * @return The wrist's position in radians.
    */
   public double position() {
@@ -140,6 +152,7 @@ public class Wrist extends SubsystemBase implements Logged, AutoCloseable {
 
   /**
    * Finds whether the PID is at its goal or not.
+   *
    * @return whether the PID is at it's goal.
    */
   public boolean atGoal() {
@@ -148,6 +161,7 @@ public class Wrist extends SubsystemBase implements Logged, AutoCloseable {
 
   /**
    * Finds whether the wrist is close to a certain position or not.
+   *
    * @param position the position being tested, in radians
    * @return Whether the wrist is close enough to the position.
    */

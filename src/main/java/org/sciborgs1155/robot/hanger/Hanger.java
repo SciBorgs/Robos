@@ -1,10 +1,9 @@
 package org.sciborgs1155.robot.hanger;
 
-import org.sciborgs1155.robot.Robot;
-
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import monologue.Logged;
+import org.sciborgs1155.robot.Robot;
 
 public class Hanger extends SubsystemBase implements AutoCloseable, Logged {
 
@@ -14,11 +13,11 @@ public class Hanger extends SubsystemBase implements AutoCloseable, Logged {
     this.hardware = hardware;
   }
 
-  public Hanger create() {
+  public static Hanger create() {
     return Robot.isReal() ? new Hanger(new RealHanger()) : new Hanger(new NoHanger());
   }
 
-  public Hanger none() {
+  public static Hanger none() {
     return new Hanger(new NoHanger());
   }
 
