@@ -22,6 +22,7 @@ import org.sciborgs1155.robot.Ports.OI;
 import org.sciborgs1155.robot.commands.Autos;
 import org.sciborgs1155.robot.drive.Drive;
 import org.sciborgs1155.robot.drive.DriveConstants;
+import org.sciborgs1155.robot.elevator.Elevator;
 import org.sciborgs1155.robot.hanger.Hanger;
 import org.sciborgs1155.robot.intake.Intake;
 import org.sciborgs1155.robot.wrist.Wrist;
@@ -40,6 +41,12 @@ public class Robot extends CommandRobot implements Logged {
 
   // SUBSYSTEMS
   private final Drive drive = Drive.create();
+
+  private final Elevator elevator =
+      switch (Constants.ROBOT_TYPE) {
+        case CHASSIS -> Elevator.none();
+        default -> Elevator.create();
+      };
 
   private final Wrist wrist =
       switch (Constants.ROBOT_TYPE) {
@@ -117,6 +124,8 @@ public class Robot extends CommandRobot implements Logged {
                 driver::getRightX,
                 DriveConstants.MAX_ANGULAR_SPEED.in(RadiansPerSecond),
                 DriveConstants.MAX_ANGULAR_ACCEL.in(RadiansPerSecond.per(Second)))));
+
+    wrist.setDefaultCommand(wrist.retract());
   }
 
   /** Configures trigger -> command bindings */

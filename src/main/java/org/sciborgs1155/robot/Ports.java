@@ -44,4 +44,8 @@ public final class Ports {
     public static final int LEFT_PISTON = 29;
     public static final int RIGHT_PISTON = 30;
   }
+
+  public static final class Forklift {
+    public static final int PISTON = 31;
+  }
 }

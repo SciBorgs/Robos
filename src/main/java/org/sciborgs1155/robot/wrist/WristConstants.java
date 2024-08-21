@@ -28,8 +28,8 @@ public class WristConstants {
       (Meters).mult(Meters).mult(Kilograms).of(0.2);
   // bruh idk. 0.2 is probably a good enough estimate or somehting
 
-  public static final double MOTOR_GEARING = 1.0;
-  // idk this either. 1 should be fine
+  public static final double MOTOR_GEARING = 20.0;
+  // idk this either. 20 should be fine
 
   public static final Measure<Velocity<Velocity<Angle>>> MAX_ACCEL =
       RadiansPerSecond.per(Second).of(1);

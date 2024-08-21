@@ -1,13 +1,13 @@
 package org.sciborgs1155.robot.wrist;
 
 import static org.sciborgs1155.robot.Ports.Wrist.*;
-import static org.sciborgs1155.robot.wrist.WristConstants.*;
 
 import com.ctre.phoenix6.hardware.TalonFX;
 
 public class RealWrist implements WristIO {
   public final TalonFX motor;
 
+  /** Constructor. */
   public RealWrist() {
     motor = new TalonFX(INTAKE_WRIST);
     motor.setPosition(0);
@@ -20,12 +20,12 @@ public class RealWrist implements WristIO {
 
   @Override
   public double getPosition() {
-    return motor.getPosition().getValueAsDouble();
+    return motor.getPosition().getValueAsDouble() * 2 * Math.PI;
   }
 
   @Override
   public double getVelocity() {
-    return motor.getVelocity().getValueAsDouble();
+    return motor.getVelocity().getValueAsDouble() * 2 * Math.PI;
   }
 
   @Override

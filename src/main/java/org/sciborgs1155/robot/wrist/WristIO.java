@@ -12,16 +12,12 @@ public interface WristIO extends AutoCloseable, Logged {
   public void setVoltage(double voltage);
 
   /**
-   * Gets the position of the wrist.
-   *
    * @return The position of the wrist in radians.
    */
   public double getPosition();
 
   /**
-   * Gets the velocity of the wrist.
-   *
-   * @return The velocity of the wrist in radians / second.
+   * @return The velocity of the wrist in radians / sec.
    */
   public double getVelocity();
 }

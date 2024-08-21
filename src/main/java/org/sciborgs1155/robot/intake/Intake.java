@@ -1,7 +1,6 @@
 package org.sciborgs1155.robot.intake;
 
 import static edu.wpi.first.units.Units.Seconds;
-import static org.sciborgs1155.robot.Constants.*;
 import static org.sciborgs1155.robot.intake.IntakeConstants.*;
 
 import edu.wpi.first.math.filter.Debouncer.DebounceType;
@@ -9,6 +8,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import monologue.Annotations.Log;
 import monologue.Logged;
 import org.sciborgs1155.robot.Robot;
 
@@ -97,7 +97,7 @@ public class Intake extends SubsystemBase implements Logged, AutoCloseable {
    *
    * @return A Trigger that activates when both sensors detect a cube.
    */
-  public Trigger hasCube() {
+  public Trigger cube() {
     return new Trigger(hardware::hasCube)
         .debounce(DEBOUNCE_TIME.in(Seconds), DebounceType.kFalling);
   }
@@ -105,5 +105,10 @@ public class Intake extends SubsystemBase implements Logged, AutoCloseable {
   @Override
   public void close() throws Exception {
     hardware.close();
+  }
+
+  @Log.NT
+  public boolean hasCube() {
+    return hardware.hasCube();
   }
 }

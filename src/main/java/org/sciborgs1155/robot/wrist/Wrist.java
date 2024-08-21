@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import java.util.function.DoubleSupplier;
+import monologue.Annotations.Log;
 import monologue.Logged;
 import org.sciborgs1155.robot.Robot;
 
@@ -45,8 +46,6 @@ public class Wrist extends SubsystemBase implements Logged, AutoCloseable {
             new SysIdRoutine.Mechanism(v -> hardware.setVoltage(v.in(Volts)), null, this));
 
     pid.reset(MIN_ANGLE.in(Radians));
-
-    setDefaultCommand(retract());
 
     teleop().or(autonomous()).onTrue(runOnce(() -> pid.reset(hardware.getPosition())));
   }
@@ -76,7 +75,7 @@ public class Wrist extends SubsystemBase implements Logged, AutoCloseable {
    * @return A command to extend the wrist to its max angle.
    */
   public Command extend() {
-    return runWrist(() -> MAX_ANGLE.in(Radians));
+    return run(() -> nextVoltage(MAX_ANGLE.in(Radians)));
   }
 
   /**
@@ -85,7 +84,7 @@ public class Wrist extends SubsystemBase implements Logged, AutoCloseable {
    * @return A command to retract the wrist to its min angle.
    */
   public Command retract() {
-    return runWrist(() -> MIN_ANGLE.in(Radians));
+    return run(() -> nextVoltage(MIN_ANGLE.in(Radians)));
   }
 
   /**
@@ -103,7 +102,7 @@ public class Wrist extends SubsystemBase implements Logged, AutoCloseable {
    *
    * @param goalAngle the angle to move the wrist to, in radians.
    */
-  public void nextVoltage(double goalAngle) {
+  private void nextVoltage(double goalAngle) {
     double goal =
         !Double.isNaN(goalAngle)
             ? MathUtil.clamp(goalAngle, MIN_ANGLE.in(Radians), MAX_ANGLE.in(Radians))
@@ -117,37 +116,40 @@ public class Wrist extends SubsystemBase implements Logged, AutoCloseable {
     hardware.setVoltage(fb + ff);
   }
 
+  /**
+   * @return A command for a SysID dynamic forward test.
+   */
   public Command dynamicForward() {
     return sysIdRoutine
         .dynamic(Direction.kForward)
         .until(() -> hardware.getPosition() > MAX_ANGLE.in(Radians) - 0.2);
   }
 
+  /**
+   * @return A command for a SysID dynamic backward test.
+   */
   public Command dynamicBackward() {
     return sysIdRoutine
         .dynamic(Direction.kReverse)
         .until(() -> hardware.getPosition() < MIN_ANGLE.in(Radians) + 0.2);
   }
 
+  /**
+   * @return A command for a SysID quasistatic forward test.
+   */
   public Command quasistaticForward() {
     return sysIdRoutine
         .quasistatic(Direction.kForward)
         .until(() -> hardware.getPosition() > MAX_ANGLE.in(Radians) - 0.2);
   }
 
+  /**
+   * @return A command for a SysID dynamic backward test.
+   */
   public Command quasistaticBackward() {
     return sysIdRoutine
         .quasistatic(Direction.kReverse)
         .until(() -> hardware.getPosition() < MIN_ANGLE.in(Radians) + 0.2);
-  }
-
-  /**
-   * The position of the wrist.
-   *
-   * @return The wrist's position in radians.
-   */
-  public double position() {
-    return hardware.getPosition();
   }
 
   /**
@@ -172,5 +174,15 @@ public class Wrist extends SubsystemBase implements Logged, AutoCloseable {
   @Override
   public void close() throws Exception {
     hardware.close();
+  }
+
+  @Log.NT
+  public double position() {
+    return hardware.getPosition();
+  }
+
+  @Log.NT
+  public double velocity() {
+    return hardware.getVelocity();
   }
 }
