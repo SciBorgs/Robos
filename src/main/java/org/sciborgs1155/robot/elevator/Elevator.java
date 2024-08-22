@@ -23,6 +23,8 @@ public class Elevator extends SubsystemBase implements AutoCloseable, Logged {
       new ProfiledPIDController(
           kP, kI, kD, new TrapezoidProfile.Constraints(MAX_VELOCITY, MAX_ACCEL));
 
+  private double setpoint = 0;
+
   /**
    * Constructor.
    *
@@ -85,6 +87,7 @@ public class Elevator extends SubsystemBase implements AutoCloseable, Logged {
    * @param goalPosition the next position to move the elevator to, in radians.
    */
   private void nextVoltage(double goalPosition) {
+    setpoint = goalPosition;
     double goal =
         !Double.isNaN(goalPosition)
             ? MathUtil.clamp(goalPosition, MIN_HEIGHT.in(Meters), MAX_HEIGHT.in(Meters))
@@ -93,9 +96,11 @@ public class Elevator extends SubsystemBase implements AutoCloseable, Logged {
     double fb = pid.calculate(hardware.getPosition(), goal);
     double accel = (pid.getSetpoint().velocity - prevSet.velocity) / PERIOD.in(Seconds);
     double feedforward =
-        ff.calculate(pid.getSetpoint().position + Math.PI, pid.getSetpoint().velocity, accel);
-    hardware.setVoltage(fb + feedforward);
+        ff.calculate(hardware.getVelocity(), accel);
+    hardware.setVoltage(feedforward + fb);
   }
+
+
 
   @Override
   public void close() throws Exception {
@@ -110,5 +115,10 @@ public class Elevator extends SubsystemBase implements AutoCloseable, Logged {
   @Log.NT
   public double velocity() {
     return hardware.getVelocity();
+  }
+
+  @Log.NT
+  public double setpoint() {
+    return setpoint;
   }
 }

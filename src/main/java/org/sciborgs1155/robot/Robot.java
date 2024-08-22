@@ -126,6 +126,7 @@ public class Robot extends CommandRobot implements Logged {
                 DriveConstants.MAX_ANGULAR_ACCEL.in(RadiansPerSecond.per(Second)))));
 
     wrist.setDefaultCommand(wrist.retract());
+    elevator.setDefaultCommand(elevator.bottom());
   }
 
   /** Configures trigger -> command bindings */
@@ -138,5 +139,7 @@ public class Robot extends CommandRobot implements Logged {
         .or(driver.rightBumper())
         .onTrue(Commands.runOnce(() -> speedMultiplier = Constants.FULL_SPEED))
         .onFalse(Commands.run(() -> speedMultiplier = Constants.SLOW_SPEED));
+
+    operator.a().whileTrue(elevator.top());
   }
 }

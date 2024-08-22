@@ -4,31 +4,13 @@
       "visible": false
     }
   },
-  "Joysticks": {
-    "window": {
-      "visible": false
-    }
-  },
-  "System Joysticks": {
-    "window": {
-      "visible": false
-    }
-  },
   "keyboardJoysticks": [
     {
       "axisConfig": [
+        {},
+        {},
         {
-          "decKey": 68,
-          "incKey": 65
-        },
-        {
-          "decKey": 87,
-          "incKey": 83
-        },
-        {
-          "decKey": 69,
           "decayRate": 0.0,
-          "incKey": 82,
           "keyRate": 0.009999999776482582
         },
         {},
@@ -38,12 +20,18 @@
         }
       ],
       "axisCount": 6,
-      "buttonCount": 4,
+      "buttonCount": 10,
       "buttonKeys": [
         90,
         88,
         67,
-        86
+        86,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1
       ],
       "povConfig": [
         {
@@ -60,20 +48,17 @@
       "povCount": 1
     },
     {
-      "axisConfig": [
-        {},
-        {
-          "decKey": 73,
-          "incKey": 75
-        }
-      ],
       "axisCount": 4,
-      "buttonCount": 4,
+      "buttonCount": 8,
       "buttonKeys": [
-        77,
-        44,
-        46,
-        47
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1
       ],
       "povCount": 0
     },
@@ -89,27 +74,47 @@
         }
       ],
       "axisCount": 2,
-      "buttonCount": 6,
+      "buttonCount": 8,
       "buttonKeys": [
-        260,
-        268,
-        266,
-        261,
-        269,
-        267
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1
       ],
       "povCount": 0
     },
     {
       "axisCount": 0,
-      "buttonCount": 0,
+      "buttonCount": 8,
+      "buttonKeys": [
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1
+      ],
       "povCount": 0
     }
   ],
   "robotJoysticks": [
-    {},
     {
       "guid": "Keyboard0"
+    },
+    {
+      "guid": "Keyboard1"
+    },
+    {
+      "guid": "Keyboard2"
+    },
+    {
+      "guid": "Keyboard3"
     }
   ]
 }

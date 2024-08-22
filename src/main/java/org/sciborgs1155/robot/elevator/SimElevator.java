@@ -2,10 +2,12 @@ package org.sciborgs1155.robot.elevator;
 
 import static edu.wpi.first.units.Units.Kilograms;
 import static edu.wpi.first.units.Units.Meters;
+import static edu.wpi.first.units.Units.Seconds;
 import static org.sciborgs1155.robot.elevator.ElevatorConstants.*;
 
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.wpilibj.simulation.ElevatorSim;
+import org.sciborgs1155.robot.Constants;
 
 public class SimElevator implements ElevatorIO {
   private ElevatorSim sim;
@@ -36,6 +38,7 @@ public class SimElevator implements ElevatorIO {
   @Override
   public void setVoltage(double voltage) {
     sim.setInputVoltage(voltage);
+    sim.update(Constants.PERIOD.in(Seconds));
   }
 
   @Override

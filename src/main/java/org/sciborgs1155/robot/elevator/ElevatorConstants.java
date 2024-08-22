@@ -16,7 +16,7 @@ public class ElevatorConstants {
   public static final Measure<Distance> MAX_HEIGHT = Inches.of(100000 / 1271);
 
   // i guessed this one
-  public static final Measure<Mass> CARRIAGE_MASS = Kilograms.of(16);
+  public static final Measure<Mass> CARRIAGE_MASS = Kilograms.of(20);
 
   // 2 sounds right
   public static final Measure<Distance> SPROCKET_RADIUS = Inches.of(2);
@@ -25,18 +25,16 @@ public class ElevatorConstants {
   public static final double HIGH_GEAR = 12.06;
 
   // made up numbers :D
-  public static final Measure<Velocity<Distance>> MAX_VELOCITY = MetersPerSecond.of(1);
+  public static final Measure<Velocity<Distance>> MAX_VELOCITY = MetersPerSecond.of(10);
   public static final Measure<Velocity<Velocity<Distance>>> MAX_ACCEL =
-      MetersPerSecond.of(1).per(Second);
+      MetersPerSecond.of(10).per(Second);
 
-  // uhhh these sounded right lmao
-  public static final double kP = 0.1;
+  public static final double kP = 15;
   public static final double kI = 0;
-  public static final double kD = 0.01;
+  public static final double kD = 0.5;
 
-  // I TOOK THESE FROM SCIBORGS 2023!!!!!!!
-  public static final double kS = 0.4;
-  public static final double kV = 0.07;
-  public static final double kA = 33.25;
-  public static final double kG = 1.5;
+  public static final double kS = 0.5;
+  public static final double kV = 1;
+  public static final double kA = 0;
+  public static final double kG = 0.58;
 }

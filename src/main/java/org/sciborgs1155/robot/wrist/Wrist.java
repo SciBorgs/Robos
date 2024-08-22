@@ -13,6 +13,7 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
@@ -26,11 +27,16 @@ public class Wrist extends SubsystemBase implements Logged, AutoCloseable {
   private final WristIO hardware;
   private final SysIdRoutine sysIdRoutine;
 
+  @Log.NT
   private final ProfiledPIDController pid =
       new ProfiledPIDController(
           kP, kI, kD, new TrapezoidProfile.Constraints(MAX_VELOCITY, MAX_ACCEL));
 
-  private final ArmFeedforward feedforward = new ArmFeedforward(kS, kV, kA, kG);
+  @Log.NT private final ArmFeedforward feedforward = new ArmFeedforward(kS, kG, kV, kA);
+
+  private double setpoint = 0;
+
+  private double voltage = 0;
 
   /**
    * Constructor.
@@ -44,6 +50,11 @@ public class Wrist extends SubsystemBase implements Logged, AutoCloseable {
         new SysIdRoutine(
             new SysIdRoutine.Config(Volts.per(Second).of(0.5), Volts.of(3), Seconds.of(6)),
             new SysIdRoutine.Mechanism(v -> hardware.setVoltage(v.in(Volts)), null, this));
+
+    SmartDashboard.putData("wrist quasistatic forward", quasistaticForward());
+    SmartDashboard.putData("wrist quasistatic backward", quasistaticBackward());
+    SmartDashboard.putData("wrist dynamic forward", dynamicForward());
+    SmartDashboard.putData("wrist dynamic backward", dynamicBackward());
 
     pid.reset(MIN_ANGLE.in(Radians));
 
@@ -94,7 +105,7 @@ public class Wrist extends SubsystemBase implements Logged, AutoCloseable {
    * @return A command which moves the wrist to the goal angle.
    */
   public Command runWrist(DoubleSupplier goalAngle) {
-    return run(() -> nextVoltage(goalAngle.getAsDouble())).asProxy();
+    return run(() -> nextVoltage(goalAngle.getAsDouble()));
   }
 
   /**
@@ -102,7 +113,9 @@ public class Wrist extends SubsystemBase implements Logged, AutoCloseable {
    *
    * @param goalAngle the angle to move the wrist to, in radians.
    */
+  @Log.NT
   private void nextVoltage(double goalAngle) {
+    setpoint = goalAngle;
     double goal =
         !Double.isNaN(goalAngle)
             ? MathUtil.clamp(goalAngle, MIN_ANGLE.in(Radians), MAX_ANGLE.in(Radians))
@@ -111,9 +124,9 @@ public class Wrist extends SubsystemBase implements Logged, AutoCloseable {
     double fb = pid.calculate(hardware.getPosition(), goal);
     double accel = (pid.getSetpoint().velocity - prevSet.velocity) / PERIOD.in(Seconds);
     double ff =
-        feedforward.calculate(
-            pid.getSetpoint().position + Math.PI, pid.getSetpoint().velocity, accel);
-    hardware.setVoltage(fb + ff);
+        feedforward.calculate(pid.getSetpoint().position, pid.getSetpoint().velocity, accel);
+    voltage = (fb + ff);
+    hardware.setVoltage((fb + ff));
   }
 
   /**
@@ -184,5 +197,15 @@ public class Wrist extends SubsystemBase implements Logged, AutoCloseable {
   @Log.NT
   public double velocity() {
     return hardware.getVelocity();
+  }
+
+  @Log.NT
+  public double voltage() {
+    return voltage;
+  }
+
+  @Log.NT
+  public double setpoint() {
+    return setpoint;
   }
 }

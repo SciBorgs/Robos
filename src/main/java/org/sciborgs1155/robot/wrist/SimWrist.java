@@ -3,11 +3,13 @@ package org.sciborgs1155.robot.wrist;
 import static edu.wpi.first.units.Units.Kilograms;
 import static edu.wpi.first.units.Units.Meters;
 import static edu.wpi.first.units.Units.Radians;
+import static edu.wpi.first.units.Units.Seconds;
 import static org.sciborgs1155.robot.wrist.WristConstants.*;
 
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.math.system.plant.LinearSystemId;
 import edu.wpi.first.wpilibj.simulation.SingleJointedArmSim;
+import org.sciborgs1155.robot.Constants;
 
 public class SimWrist implements WristIO {
 
@@ -15,10 +17,10 @@ public class SimWrist implements WristIO {
       new SingleJointedArmSim(
           LinearSystemId.createSingleJointedArmSystem(
               DCMotor.getFalcon500(1),
-              MOI.in((Meters).mult(Meters).mult(Kilograms)),
-              1.0 / MOTOR_GEARING),
+              SingleJointedArmSim.estimateMOI(LENGTH.in(Meters), MASS.in(Kilograms)),
+              MOTOR_GEARING),
           DCMotor.getFalcon500(1),
-          1.0 / MOTOR_GEARING,
+          MOTOR_GEARING,
           LENGTH.in(Meters),
           MIN_ANGLE.in(Radians),
           MAX_ANGLE.in(Radians),
@@ -28,6 +30,7 @@ public class SimWrist implements WristIO {
   @Override
   public void setVoltage(double voltage) {
     sim.setInputVoltage(voltage);
+    sim.update(Constants.PERIOD.in(Seconds));
   }
 
   @Override
