@@ -24,6 +24,8 @@ public class ElevatorConstants {
   // we're not going for low gear. too lazy bo bazy
   public static final double HIGH_GEAR = 12.06;
 
+  public static final Measure<Distance> POSITION_TOLERANCE = Inches.of(0.5);
+
   // made up numbers :D
   public static final Measure<Velocity<Distance>> MAX_VELOCITY = MetersPerSecond.of(10);
   public static final Measure<Velocity<Velocity<Distance>>> MAX_ACCEL =

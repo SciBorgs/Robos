@@ -84,7 +84,6 @@ public class Robot extends CommandRobot implements Logged {
     DataLogManager.start();
     Monologue.setupMonologue(this, "/Robot", false, true);
     addPeriodic(Monologue::updateAll, kDefaultPeriod);
-    FaultLogger.setupLogging();
     addPeriodic(FaultLogger::update, 1);
 
     if (isReal()) {
@@ -132,7 +131,6 @@ public class Robot extends CommandRobot implements Logged {
   /** Configures trigger -> command bindings */
   private void configureBindings() {
     autonomous().whileTrue(new ProxyCommand(autos::get));
-    FaultLogger.onFailing(f -> Commands.print(f.toString()));
 
     driver
         .leftBumper()
@@ -140,6 +138,6 @@ public class Robot extends CommandRobot implements Logged {
         .onTrue(Commands.runOnce(() -> speedMultiplier = Constants.FULL_SPEED))
         .onFalse(Commands.run(() -> speedMultiplier = Constants.SLOW_SPEED));
 
-    operator.a().whileTrue(elevator.top());
+    operator.a().whileTrue(wrist.extend());
   }
 }

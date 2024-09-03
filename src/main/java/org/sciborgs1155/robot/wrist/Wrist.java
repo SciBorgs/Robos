@@ -1,5 +1,6 @@
 package org.sciborgs1155.robot.wrist;
 
+import static edu.wpi.first.units.Units.Degrees;
 import static edu.wpi.first.units.Units.Radians;
 import static edu.wpi.first.units.Units.Second;
 import static edu.wpi.first.units.Units.Seconds;
@@ -13,14 +14,21 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
+import edu.wpi.first.math.util.Units;
+import edu.wpi.first.units.Angle;
+import edu.wpi.first.units.Measure;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
+import java.util.Set;
 import java.util.function.DoubleSupplier;
 import monologue.Annotations.Log;
 import monologue.Logged;
+import org.sciborgs1155.lib.Assertion;
+import org.sciborgs1155.lib.Assertion.EqualityAssertion;
+import org.sciborgs1155.lib.Test;
 import org.sciborgs1155.robot.Robot;
 
 public class Wrist extends SubsystemBase implements Logged, AutoCloseable {
@@ -163,6 +171,17 @@ public class Wrist extends SubsystemBase implements Logged, AutoCloseable {
     return sysIdRoutine
         .quasistatic(Direction.kReverse)
         .until(() -> hardware.getPosition() < MIN_ANGLE.in(Radians) + 0.2);
+  }
+
+  public Test goToTest(Measure<Angle> goal) {
+    Command testCommand =
+        runWrist(() -> goal.in(Radians)).until(() -> atPosition(goal.in(Radians))).withTimeout(2);
+    EqualityAssertion atGoal =
+        Assertion.eAssert(
+            "Pivot Test Angle (degrees)",
+            () -> goal.in(Degrees),
+            () -> Units.radiansToDegrees(position()));
+    return new Test(testCommand, Set.of(atGoal));
   }
 
   /**

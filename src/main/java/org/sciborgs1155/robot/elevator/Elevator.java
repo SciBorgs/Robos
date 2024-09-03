@@ -9,10 +9,16 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.ElevatorFeedforward;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
+import edu.wpi.first.units.Distance;
+import edu.wpi.first.units.Measure;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import java.util.Set;
 import monologue.Annotations.Log;
 import monologue.Logged;
+import org.sciborgs1155.lib.Assertion;
+import org.sciborgs1155.lib.Assertion.EqualityAssertion;
+import org.sciborgs1155.lib.Test;
 import org.sciborgs1155.robot.Robot;
 
 public class Elevator extends SubsystemBase implements AutoCloseable, Logged {
@@ -95,12 +101,27 @@ public class Elevator extends SubsystemBase implements AutoCloseable, Logged {
     TrapezoidProfile.State prevSet = pid.getSetpoint();
     double fb = pid.calculate(hardware.getPosition(), goal);
     double accel = (pid.getSetpoint().velocity - prevSet.velocity) / PERIOD.in(Seconds);
-    double feedforward =
-        ff.calculate(hardware.getVelocity(), accel);
+    double feedforward = ff.calculate(hardware.getVelocity(), accel);
     hardware.setVoltage(feedforward + fb);
   }
 
+  public Test goToTest(Measure<Distance> goal) {
+    Command testCommand =
+        moveTo(goal.in(Meters)).until(() -> atPosition(goal.in(Meters))).withTimeout(2);
+    EqualityAssertion atGoal =
+        Assertion.eAssert("Elevator Test Height (Meters)", () -> goal.in(Meters), () -> position());
+    return new Test(testCommand, Set.of(atGoal));
+  }
 
+  /**
+   * Determines whether the position of the elevator is close enough to a certain point.
+   *
+   * @param goal The certain position, in meters.
+   * @return Whether the position of the elevator is within the position tolerance.
+   */
+  public boolean atPosition(double position) {
+    return Math.abs(hardware.getPosition() - position) < POSITION_TOLERANCE.in(Meters);
+  }
 
   @Override
   public void close() throws Exception {
