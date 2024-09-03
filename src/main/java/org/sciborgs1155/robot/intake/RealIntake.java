@@ -7,6 +7,8 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 
+import static org.sciborgs1155.lib.FaultLogger.*;
+
 public class RealIntake implements IntakeIO {
 
   private final TalonFX leftMotor, rightMotor;
@@ -19,9 +21,11 @@ public class RealIntake implements IntakeIO {
     leftMotor = new TalonFX(INTAKE_LEFT);
     leftMotor.setInverted(true);
     leftMotor.setPosition(0);
-
+    register(leftMotor);
+    
     rightMotor = new TalonFX(INTAKE_RIGHT);
     rightMotor.setPosition(0);
+    register(rightMotor);
 
     leftJaw = new Solenoid(PneumaticsModuleType.REVPH, JAW_LEFT);
     rightJaw = new Solenoid(PneumaticsModuleType.REVPH, JAW_RIGHT);

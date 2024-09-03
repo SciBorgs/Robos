@@ -8,6 +8,8 @@ import static org.sciborgs1155.robot.elevator.ElevatorConstants.SPROCKET_RADIUS;
 import com.ctre.phoenix6.hardware.TalonFX;
 import java.util.List;
 
+import static org.sciborgs1155.lib.FaultLogger.*;
+
 public class RealElevator implements ElevatorIO {
   private TalonFX lead;
   private TalonFX rightFollower;
@@ -20,15 +22,19 @@ public class RealElevator implements ElevatorIO {
   public RealElevator() {
     lead = new TalonFX(FIRST_MOTOR);
     lead.setInverted(true);
+    register(lead);
 
     rightFollower = new TalonFX(SECOND_MOTOR);
     rightFollower.setInverted(true);
+    register(rightFollower);
 
     leftFollowerOne = new TalonFX(THIRD_MOTOR);
     leftFollowerOne.setInverted(false);
+    register(leftFollowerOne);
 
     leftFollowerTwo = new TalonFX(FOURTH_MOTOR);
     leftFollowerOne.setInverted(false);
+    register(leftFollowerTwo);
   }
 
   @Override
