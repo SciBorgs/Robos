@@ -2,9 +2,8 @@ package org.sciborgs1155.robot.wrist;
 
 import static org.sciborgs1155.robot.Ports.Wrist.*;
 
-import org.sciborgs1155.lib.FaultLogger;
-
 import com.ctre.phoenix6.hardware.TalonFX;
+import org.sciborgs1155.lib.FaultLogger;
 
 public class RealWrist implements WristIO {
   public final TalonFX motor;

@@ -1,13 +1,12 @@
 package org.sciborgs1155.robot.intake;
 
+import static org.sciborgs1155.lib.FaultLogger.*;
 import static org.sciborgs1155.robot.Ports.Intake.*;
 
 import com.ctre.phoenix6.hardware.TalonFX;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
-
-import static org.sciborgs1155.lib.FaultLogger.*;
 
 public class RealIntake implements IntakeIO {
 
@@ -22,7 +21,7 @@ public class RealIntake implements IntakeIO {
     leftMotor.setInverted(true);
     leftMotor.setPosition(0);
     register(leftMotor);
-    
+
     rightMotor = new TalonFX(INTAKE_RIGHT);
     rightMotor.setPosition(0);
     register(rightMotor);

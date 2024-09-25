@@ -1,14 +1,13 @@
 package org.sciborgs1155.robot.elevator;
 
 import static edu.wpi.first.units.Units.Meters;
+import static org.sciborgs1155.lib.FaultLogger.*;
 import static org.sciborgs1155.robot.Ports.Elevator.*;
 import static org.sciborgs1155.robot.elevator.ElevatorConstants.HIGH_GEAR;
 import static org.sciborgs1155.robot.elevator.ElevatorConstants.SPROCKET_RADIUS;
 
 import com.ctre.phoenix6.hardware.TalonFX;
 import java.util.List;
-
-import static org.sciborgs1155.lib.FaultLogger.*;
 
 public class RealElevator implements ElevatorIO {
   private TalonFX lead;
