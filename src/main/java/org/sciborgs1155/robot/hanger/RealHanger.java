@@ -10,6 +10,7 @@ public class RealHanger implements HangerIO {
   private final Solenoid leftPiston, rightPiston;
 
   public RealHanger() {
+    //Should be a CTRE PCM
     leftPiston = new Solenoid(PneumaticsModuleType.REVPH, LEFT_PISTON);
     rightPiston = new Solenoid(PneumaticsModuleType.REVPH, RIGHT_PISTON);
   }

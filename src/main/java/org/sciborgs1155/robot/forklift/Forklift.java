@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import monologue.Logged;
 import org.sciborgs1155.robot.Robot;
 
+//where are the methods that actually return commands
 public class Forklift extends SubsystemBase implements AutoCloseable, Logged {
 
   private ForkliftIO hardware;

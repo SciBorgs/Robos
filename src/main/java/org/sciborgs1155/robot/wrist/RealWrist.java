@@ -8,6 +8,10 @@ import org.sciborgs1155.lib.FaultLogger;
 public class RealWrist implements WristIO {
   public final TalonFX motor;
 
+  /*
+   * I believe they use a remote absolute encoder directly on
+   * the pivot shaft of the wrist.
+   */
   /** Constructor. */
   public RealWrist() {
     motor = new TalonFX(INTAKE_WRIST);
@@ -16,7 +20,7 @@ public class RealWrist implements WristIO {
   }
 
   @Override
-  public void setVoltage(double voltage) {
+  public void setVoltage(double voltage) { 
     motor.setVoltage(voltage);
   }
 

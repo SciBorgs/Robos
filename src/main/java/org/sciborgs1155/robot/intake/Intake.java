@@ -12,6 +12,12 @@ import monologue.Annotations.Log;
 import monologue.Logged;
 import org.sciborgs1155.robot.Robot;
 
+
+/*
+ * I don't see any implementation of the jaw in here,
+ * and therefore there's no way to clamp or drop the note,
+ * so I'd recommend adding that in addition to the rollers
+ */
 public class Intake extends SubsystemBase implements Logged, AutoCloseable {
 
   private IntakeIO hardware;
@@ -50,6 +56,7 @@ public class Intake extends SubsystemBase implements Logged, AutoCloseable {
    * @return A command which intakes until there is a cube detected in the sensors.
    */
   public Command intake() {
+    //should use the method you defined in class for hasCube
     return forward().until(hardware::hasCube).andThen(stop());
   }
 
