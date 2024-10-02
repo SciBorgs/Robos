@@ -36,6 +36,11 @@ public class WristConstants {
   // i just stole this one from TFC
   public static final Measure<Angle> POSITION_TOLERANCE = Degrees.of(0.8);
 
+  /*
+   * seems under damped when I set it to 45 degrees
+   * was hard to notice because the wrist was running into the simulated
+   * hardstop (MAX_ANGLE) and just stopping
+   */
   // mad guess
   public static final double kP = 10;
   public static final double kI = 0;

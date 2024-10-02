@@ -2,6 +2,7 @@ package org.sciborgs1155.robot.elevator;
 
 import monologue.Logged;
 
+//I think they have a limit switch to zero position but not strictly necessary
 public interface ElevatorIO extends AutoCloseable, Logged {
 
   /**

@@ -4,6 +4,7 @@ import static edu.wpi.first.units.Units.Inches;
 
 public class NoElevator implements ElevatorIO {
 
+  //should be zero I believe
   @Override
   public double getPosition() {
     return ElevatorConstants.MIN_HEIGHT.in(Inches);

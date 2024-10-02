@@ -19,6 +19,8 @@
       "/Robot/drive/rearLeft/turnFeedback": "PIDController",
       "/Robot/drive/rearRight/driveFeedback": "PIDController",
       "/Robot/drive/rearRight/turnFeedback": "PIDController",
+      "/Robot/drive/rotationController": "PIDController",
+      "/Robot/drive/translationController": "ProfiledPIDController",
       "/Robot/wrist/pid": "ProfiledPIDController",
       "/SmartDashboard/drive dynamic backward": "Command",
       "/SmartDashboard/drive dynamic forward": "Command",
@@ -28,6 +30,14 @@
       "/SmartDashboard/pivot dynamic forward": "Command",
       "/SmartDashboard/pivot quasistatic backward": "Command",
       "/SmartDashboard/pivot quasistatic forward": "Command",
+      "/SmartDashboard/rotation dynamic backward": "Command",
+      "/SmartDashboard/rotation dynamic forward": "Command",
+      "/SmartDashboard/rotation quasistatic backward": "Command",
+      "/SmartDashboard/rotation quasistatic forward": "Command",
+      "/SmartDashboard/translation dynamic backward": "Command",
+      "/SmartDashboard/translation dynamic forward": "Command",
+      "/SmartDashboard/translation quasistatic backward": "Command",
+      "/SmartDashboard/translation quasistatic forward": "Command",
       "/SmartDashboard/turn dynamic backward": "Command",
       "/SmartDashboard/turn dynamic forward": "Command",
       "/SmartDashboard/turn quasistatic backward": "Command",
@@ -121,6 +131,7 @@
           "ArmFeedforward##v_/Robot/wrist/feedforward": {
             "open": true
           },
+          "open": true,
           "pid": {
             "open": true
           }
@@ -144,7 +155,7 @@
             0.0,
             0.8500000238418579
           ],
-          "height": 204,
+          "height": 604,
           "series": [
             {
               "color": [
@@ -165,6 +176,19 @@
               "id": "NT:/Robot/elevator/setpoint"
             }
           ]
+        }
+      ]
+    },
+    "Plot <1>": {
+      "plots": [
+        {
+          "backgroundColor": [
+            0.0,
+            0.0,
+            0.0,
+            0.8500000238418579
+          ],
+          "height": 332
         }
       ]
     }

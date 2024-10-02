@@ -15,6 +15,7 @@ public class SimElevator implements ElevatorIO {
   public SimElevator() {
     sim =
         new ElevatorSim(
+            //They use 775s
             DCMotor.getFalcon500(4),
             HIGH_GEAR,
             CARRIAGE_MASS.in(Kilograms),
@@ -22,6 +23,7 @@ public class SimElevator implements ElevatorIO {
             MIN_HEIGHT.in(Meters),
             MAX_HEIGHT.in(Meters),
             true,
+            //technically should be MIN_HEIGHT
             0);
   }
 
