@@ -7,7 +7,7 @@ public class NoWrist implements WristIO {
   @Override
   public void setVoltage(double voltage) {}
 
-  //should still be zero
+  // should still be zero
   @Override
   public double getPosition() {
     return WristConstants.MIN_ANGLE.in(Radians);

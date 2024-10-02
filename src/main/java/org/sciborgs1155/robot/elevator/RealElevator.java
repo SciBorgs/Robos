@@ -23,8 +23,8 @@ public class RealElevator implements ElevatorIO {
     lead.setInverted(true);
     register(lead);
 
-    //Followers should follow lead; see TalonFX.setControl()
-    //I also recommend various other motor configs like current limits
+    // Followers should follow lead; see TalonFX.setControl()
+    // I also recommend various other motor configs like current limits
     rightFollower = new TalonFX(SECOND_MOTOR);
     rightFollower.setInverted(true);
     register(rightFollower);

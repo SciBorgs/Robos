@@ -2,7 +2,7 @@ package org.sciborgs1155.robot.wrist;
 
 import monologue.Logged;
 
-//I think they have a limit switch to zero position but not strictly necessary
+// I think they have a limit switch to zero position but not strictly necessary
 public interface WristIO extends AutoCloseable, Logged {
 
   /**

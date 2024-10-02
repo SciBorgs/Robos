@@ -3,14 +3,14 @@ package org.sciborgs1155.robot.intake;
 import monologue.Logged;
 
 public interface IntakeIO extends AutoCloseable, Logged {
-    /*
+  /*
    * as you may observe in the source code, technically you have three states:
    *  both pistons activated, one activated, and no activated.
    * One piston activated is how wide you want it to be as wide as the cube (while intaking)
    * Two tightly clamps the cube
    * None will drop the cube (note this won't be acceptable for intaking the cube)
    */
-  
+
   /**
    * Sets the jaw to either open or closed.
    *

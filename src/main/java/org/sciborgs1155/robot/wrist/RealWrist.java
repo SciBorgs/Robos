@@ -20,7 +20,7 @@ public class RealWrist implements WristIO {
   }
 
   @Override
-  public void setVoltage(double voltage) { 
+  public void setVoltage(double voltage) {
     motor.setVoltage(voltage);
   }
 

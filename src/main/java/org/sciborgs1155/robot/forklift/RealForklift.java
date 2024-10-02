@@ -10,7 +10,7 @@ public class RealForklift implements ForkliftIO {
 
   /** Constructor */
   public RealForklift() {
-    //erm actually this is a CTRE hub
+    // erm actually this is a CTRE hub
     piston = new Solenoid(PneumaticsModuleType.REVPH, PISTON);
   }
 

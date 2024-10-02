@@ -19,7 +19,7 @@ public class SimWrist implements WristIO {
               DCMotor.getFalcon500(1),
               SingleJointedArmSim.estimateMOI(LENGTH.in(Meters), MASS.in(Kilograms)),
               MOTOR_GEARING),
-          //I believe they use 775 Pros
+          // I believe they use 775 Pros
           DCMotor.getFalcon500(1),
           MOTOR_GEARING,
           LENGTH.in(Meters),

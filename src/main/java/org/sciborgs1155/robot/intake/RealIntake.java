@@ -19,29 +19,29 @@ public class RealIntake implements IntakeIO {
   public RealIntake() {
     leftMotor = new TalonFX(INTAKE_LEFT);
     leftMotor.setInverted(true);
-    //uneeded
+    // uneeded
     leftMotor.setPosition(0);
     register(leftMotor);
 
-    //right motor does not follow left, see TalonFX.setControl()
+    // right motor does not follow left, see TalonFX.setControl()
     rightMotor = new TalonFX(INTAKE_RIGHT);
-    //uneeded
+    // uneeded
     rightMotor.setPosition(0);
     register(rightMotor);
 
-    //CTRE PCM
+    // CTRE PCM
     leftJaw = new Solenoid(PneumaticsModuleType.REVPH, JAW_LEFT);
     rightJaw = new Solenoid(PneumaticsModuleType.REVPH, JAW_RIGHT);
   }
 
   @Override
   public void setPower(double portion) {
-    //again a follower pattern is way safer
+    // again a follower pattern is way safer
     leftMotor.set(portion);
     rightMotor.set(portion);
   }
-  
-  //position is an interesting name
+
+  // position is an interesting name
   @Override
   public void setJaw(boolean position) {
     leftJaw.set(position);
@@ -50,7 +50,7 @@ public class RealIntake implements IntakeIO {
 
   @Override
   public boolean hasCube() {
-    //erm you should read up on DeMorgan's law
+    // erm you should read up on DeMorgan's law
     return !(leftSensor.get() && rightSensor.get());
     // definitely has cube, both left and right sensor detect
   }

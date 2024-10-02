@@ -101,7 +101,8 @@ public class Elevator extends SubsystemBase implements AutoCloseable, Logged {
     TrapezoidProfile.State prevSet = pid.getSetpoint();
     double fb = pid.calculate(hardware.getPosition(), goal);
     double accel = (pid.getSetpoint().velocity - prevSet.velocity) / PERIOD.in(Seconds);
-    //feedforward strictly makes use of setpoints so use pid.getSetpoint().velocity instead of hardware.getVelocity()
+    // feedforward strictly makes use of setpoints so use pid.getSetpoint().velocity instead of
+    // hardware.getVelocity()
     double feedforward = ff.calculate(hardware.getVelocity(), accel);
     hardware.setVoltage(feedforward + fb);
   }
